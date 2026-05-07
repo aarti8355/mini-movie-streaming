@@ -46,9 +46,11 @@ jobs:
         npm install
         npm run build
 
+    - name: Create temporary .env for Docker
+      run: |
+        echo "DB_ROOT_PASSWORD=${{ secrets.DB_ROOT_PASSWORD }}" >> .env
+        echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
+
     - name: Verify Docker Compose Build
       run: |
         docker-compose build
-      env:
-        DB_ROOT_PASSWORD: ${{ secrets.DB_ROOT_PASSWORD }}
-        DB_NAME: ${{ secrets.DB_NAME }}
